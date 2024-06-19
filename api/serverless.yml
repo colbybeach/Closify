@@ -1,0 +1,11 @@
+service: dev-colbybeach
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-2
+functions:
+  app:
+    handler: dist/app.handler
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
