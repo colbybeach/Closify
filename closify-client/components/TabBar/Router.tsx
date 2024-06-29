@@ -1,38 +1,34 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import HomePage from "../../pages/HomePage";
-import AddPage from "../../pages/AddPage";
 import SettingsPage from "../../pages/SettingsPage";
-import { useState } from "react";
-import { BottomNavigation } from "react-native-paper";
-import { StatusBar, StyleSheet } from "react-native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AddPage from "../../pages/AddPage";
+import ClothingEditPage from "../../pages/ClothingEditPage";
+
 
 export default function Router() {
+  const Tab = createBottomTabNavigator();
 
-    const [index, setIndex] = useState(0);
-    const [routes] = useState([
-      { key: 'home', title: 'Home', focusedIcon: 'home'},
-      { key: 'settings', title: 'Settings', focusedIcon: 'account-settings' },
-    ]);
-  
-    const renderScene = BottomNavigation.SceneMap({
-      home: HomePage,
-      settings: SettingsPage,
+  const HomeStack = createNativeStackNavigator();
 
-    });
-  
+
+  function HomeStackScreen() {
     return (
-      <BottomNavigation
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-        style={styles.container}
-      />
+      <HomeStack.Navigator>
+        <HomeStack.Screen name="Home" component={HomePage} />
+        <HomeStack.Screen name="Edit" component={ClothingEditPage} />
+        <HomeStack.Screen name="Add" component={AddPage} />
+      </HomeStack.Navigator>
     );
+  }
+ 
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{headerShown: false}}>       
+      <Tab.Screen name="HomeStack" component={HomeStackScreen} />
+      <Tab.Screen name="Settings" component={SettingsPage} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      marginTop:StatusBar.currentHeight
-  },
-})

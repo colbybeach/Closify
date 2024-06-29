@@ -23,6 +23,14 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "budnler": "metro"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you keep track of your clothing items."
+        }
+      ]
+    ]
   }
 }

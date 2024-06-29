@@ -7,7 +7,7 @@ interface PillProps {
 
 export default function Pill({ text, color }: PillProps) {
   return (
-    <Text className={`bg-${color}-500 p-1 color-white rounded-xl `}>
+    <Text className={`bg-${color} p-1 color-white rounded-xl `}>
       {text}
     </Text>
   );
